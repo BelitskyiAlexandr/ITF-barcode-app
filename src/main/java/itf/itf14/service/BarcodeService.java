@@ -29,16 +29,25 @@ public class BarcodeService {
         return fullBarcode;
     }
 
-    // Обчислення контрольної цифри
-    private int calculateCheckDigit(String barcodeWithoutCheckDigit) {
+        /* 14  13  12  11 10  9  8  7  6  5  4  3  2 1
+         * S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 C
+         *  3   1   3   1  3  1  3  1  3  1  3  1  3
+         *
+         * when i = 0:
+         *  12  11  10  9  8  7  6  5  4  3  2  1  0
+         * */
+        private int calculateCheckDigit(String barcodeWithoutCheckDigit) {
         int sumOdd = 0;
         int sumEven = 0;
+        StringBuilder sb = new StringBuilder();
+        sb.append(barcodeWithoutCheckDigit);
+        sb.reverse();
 
         for (int i = 0; i < barcodeWithoutCheckDigit.length(); i++) {
-            int digit = Character.getNumericValue(barcodeWithoutCheckDigit.charAt(i));
-            if ((i + 1) % 2 == 0) { // Парні цифри
+            int digit = Character.getNumericValue(sb.charAt(i));
+            if (i % 2 == 0) {
                 sumEven += digit;
-            } else { // Непарні цифри
+            } else {
                 sumOdd += digit;
             }
         }
