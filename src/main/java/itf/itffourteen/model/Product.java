@@ -1,4 +1,4 @@
-package itf.itf14.model;
+package itf.itffourteen.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

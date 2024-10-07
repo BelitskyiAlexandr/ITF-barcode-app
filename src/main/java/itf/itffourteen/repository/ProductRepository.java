@@ -1,6 +1,6 @@
-package itf.itf14.repository;
+package itf.itffourteen.repository;
 
-import itf.itf14.model.Product;
+import itf.itffourteen.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
