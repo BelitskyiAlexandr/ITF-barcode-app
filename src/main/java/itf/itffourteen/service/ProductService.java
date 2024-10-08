@@ -1,7 +1,7 @@
-package itf.itf14.service;
+package itf.itffourteen.service;
 
-import itf.itf14.model.Product;
-import itf.itf14.repository.ProductRepository;
+import itf.itffourteen.model.Product;
+import itf.itffourteen.repository.ProductRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

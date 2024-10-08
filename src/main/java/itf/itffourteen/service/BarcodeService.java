@@ -1,6 +1,6 @@
-package itf.itf14.service;
+package itf.itffourteen.service;
 
-import itf.itf14.imageProcessing.ImageGenerator;
+import itf.itffourteen.imageprocessing.BarcodeGenerator;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BarcodeService {
-    private final ImageGenerator imageGenerator;
+    private final BarcodeGenerator imageGenerator;
 
-    public String generateITF14Barcode(Long productId) {
+    public String generateItf14Barcode(Long productId) {
         String barcodeWithoutCheckDigit = String.format("%013d", productId);
         int checkDigit = calculateCheckDigit(barcodeWithoutCheckDigit);
         String fullBarcode = barcodeWithoutCheckDigit + checkDigit;
@@ -23,7 +23,7 @@ public class BarcodeService {
             File outputfile = new File(fullBarcode + ".png");
             ImageIO.write(image, "png", outputfile);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO
         }
 
         return fullBarcode;
@@ -36,7 +36,7 @@ public class BarcodeService {
          * when i = 0:
          *  12  11  10  9  8  7  6  5  4  3  2  1  0
          * */
-        private int calculateCheckDigit(String barcodeWithoutCheckDigit) {
+    private int calculateCheckDigit(String barcodeWithoutCheckDigit) {
         int sumOdd = 0;
         int sumEven = 0;
         StringBuilder sb = new StringBuilder();

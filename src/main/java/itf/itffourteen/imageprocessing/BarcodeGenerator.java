@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ImageGenerator {
+public class BarcodeGenerator {
     private static final int IMAGE_WIDTH = 300;
     private static final int IMAGE_HEIGHT = 140;
     private static final int BARCODE_HEIGHT = 100;
