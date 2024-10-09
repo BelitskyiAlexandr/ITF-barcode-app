@@ -20,7 +20,7 @@ public class BarcodeService {
 
         try {
             BufferedImage image = imageGenerator.generateBarcodeImage(fullBarcode);
-            File outputfile = new File(fullBarcode + ".png");
+            File outputfile = new File("barcodes/" + fullBarcode + ".png");
             ImageIO.write(image, "png", outputfile);
         } catch (IOException e) {
             e.printStackTrace(); //TODO
