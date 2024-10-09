@@ -68,6 +68,10 @@ public class BarcodeGenerator {
         g.drawString(barcode, LABEL_X_COORDINATE, LABEL_Y_COORDINATE);
 
         g.dispose();
+
+        xCoordinate = IMAGE_WIDTH / 84 * 15;
+        yCoordinate = BORDER_THICKNESS;
+
         return image;
     }
 
