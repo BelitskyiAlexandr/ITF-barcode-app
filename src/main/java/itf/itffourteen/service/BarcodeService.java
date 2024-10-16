@@ -29,13 +29,13 @@ public class BarcodeService {
         return fullBarcode;
     }
 
-        /* 14  13  12  11 10  9  8  7  6  5  4  3  2 1
-         * S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 C
-         *  3   1   3   1  3  1  3  1  3  1  3  1  3
-         *
-         * when i = 0:
-         *  12  11  10  9  8  7  6  5  4  3  2  1  0
-         * */
+    /* 14  13  12  11 10  9  8  7  6  5  4  3  2 1
+     * S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 C
+     *  3   1   3   1  3  1  3  1  3  1  3  1  3
+     *
+     * when i = 0:
+     *  12  11  10  9  8  7  6  5  4  3  2  1  0
+     * */
     private int calculateCheckDigit(String barcodeWithoutCheckDigit) {
         int sumOdd = 0;
         int sumEven = 0;

@@ -1,14 +1,14 @@
 package itf.itffourteen.ui;
 
+import itf.itffourteen.imageprocessing.BarcodeDecoder;
 import itf.itffourteen.model.Product;
 import itf.itffourteen.service.BarcodeService;
 import itf.itffourteen.service.ProductService;
-import itf.itffourteen.imageprocessing.BarcodeDecoder;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import javax.imageio.ImageIO;
 import java.util.Optional;
 import java.util.Scanner;
+import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,9 @@ public class ProductConsoleInterface {
     private final BarcodeDecoder barcodeDecoder;
 
     @Autowired
-    public ProductConsoleInterface(ProductService productService, BarcodeService barcodeService, BarcodeDecoder barcodeDecoder) {
+    public ProductConsoleInterface(ProductService productService,
+                                   BarcodeService barcodeService,
+                                   BarcodeDecoder barcodeDecoder) {
         this.productService = productService;
         this.barcodeService = barcodeService;
         this.barcodeDecoder = barcodeDecoder;

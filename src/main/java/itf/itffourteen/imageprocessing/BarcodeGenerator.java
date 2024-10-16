@@ -16,8 +16,8 @@ public class BarcodeGenerator {
     private static final String START_PATTERN = "00";
     private static final String STOP_PATTERN = "10";
 
-    private int xCoordinate = ImageProperties.IMAGE_WIDTH / 84 * 15;
-    private int yCoordinate = ImageProperties.BORDER_THICKNESS;
+    private int xcoordinate = ImageProperties.IMAGE_WIDTH / 84 * 15;
+    private int ycoordinate = ImageProperties.BORDER_THICKNESS;
 
     public BufferedImage generateBarcodeImage(String barcode) {
         BufferedImage image = new BufferedImage(ImageProperties.IMAGE_WIDTH,
@@ -49,9 +49,9 @@ public class BarcodeGenerator {
 
         for (int i = 0; i < evenPositionPatternedNumbers.length(); i++) {
             g.setColor(Color.BLACK);
-            xCoordinate = drawBar(g, evenPositionPatternedNumbers.toCharArray()[i], xCoordinate);
+            xcoordinate = drawBar(g, evenPositionPatternedNumbers.toCharArray()[i], xcoordinate);
             g.setColor(Color.WHITE);
-            xCoordinate = drawBar(g, oddPositionPatternedNumbers.toCharArray()[i], xCoordinate);
+            xcoordinate = drawBar(g, oddPositionPatternedNumbers.toCharArray()[i], xcoordinate);
         }
 
         g.setColor(Color.BLACK);
@@ -64,8 +64,8 @@ public class BarcodeGenerator {
 
         g.dispose();
 
-        xCoordinate = ImageProperties.IMAGE_WIDTH / 84 * 15;
-        yCoordinate = ImageProperties.BORDER_THICKNESS;
+        xcoordinate = ImageProperties.IMAGE_WIDTH / 84 * 15;
+        ycoordinate = ImageProperties.BORDER_THICKNESS;
 
         return image;
     }
@@ -80,12 +80,12 @@ public class BarcodeGenerator {
 
     private int drawBar(Graphics2D g, char bit, int x) {
         if (bit == '1') {
-            g.fillRect(x, yCoordinate,
+            g.fillRect(x, ycoordinate,
                     ImageProperties.THICK_BAR_WIDTH,
                     ImageProperties.BARCODE_HEIGHT);
             x += ImageProperties.THICK_BAR_WIDTH;
         } else {
-            g.fillRect(x, yCoordinate,
+            g.fillRect(x, ycoordinate,
                     ImageProperties.BAR_WIDTH,
                     ImageProperties.BARCODE_HEIGHT);
             x += ImageProperties.BAR_WIDTH;

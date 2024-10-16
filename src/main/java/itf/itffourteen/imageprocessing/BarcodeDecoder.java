@@ -15,16 +15,16 @@ public class BarcodeDecoder {
     public String decodeBarcode(BufferedImage image) {
         int width = image.getWidth();
 
-        int xCoordinate = ImageProperties.IMAGE_WIDTH / 84 * 15;
-        int yCoordinate = ImageProperties.BORDER_THICKNESS;
+        int xcoordinate = ImageProperties.IMAGE_WIDTH / 84 * 15;
+        int ycoordinate = ImageProperties.BORDER_THICKNESS;
 
         List<Integer> barsAndSpaces = new ArrayList<>();
 
         int currentBarWidth = 0;
-        boolean isBlack = isBlackColumn(image, xCoordinate, yCoordinate);
+        boolean isBlack = isBlackColumn(image, xcoordinate, ycoordinate);
 
-        for (int x = xCoordinate; x < width - xCoordinate; x++) {
-            boolean currentColumnIsBlack = isBlackColumn(image, x, yCoordinate);
+        for (int x = xcoordinate; x < width - xcoordinate; x++) {
+            boolean currentColumnIsBlack = isBlackColumn(image, x, ycoordinate);
             if (currentColumnIsBlack == isBlack) {
                 currentBarWidth++;
             } else {
