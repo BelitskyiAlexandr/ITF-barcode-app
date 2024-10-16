@@ -1,11 +1,13 @@
 package itf.itffourteen.ui;
 
+import itf.itffourteen.model.Product;
 import itf.itffourteen.service.BarcodeService;
 import itf.itffourteen.service.ProductService;
 import itf.itffourteen.imageprocessing.BarcodeDecoder;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import java.util.Optional;
 import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,10 +31,11 @@ public class ProductConsoleInterface {
         boolean running = true;
 
         while (running) {
-            System.out.println("Оберіть дію:");
-            System.out.println("1. Створити новий товар");
-            System.out.println("2. Зчитати штрихкод з зображення");
-            System.out.println("3. Вийти");
+            System.out.println("\n+---------------------------------+");
+            System.out.println("Select an action:");
+            System.out.println("1. Create a new product");
+            System.out.println("2. Decode barcode from image");
+            System.out.println("3. Exit");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -42,9 +45,9 @@ public class ProductConsoleInterface {
                 case 2 -> decodeBarcode(scanner);
                 case 3 -> {
                     running = false;
-                    System.out.println("Завершення програми...");
+                    System.out.println("Exiting the program...");
                 }
-                default -> System.out.println("Невірний вибір, спробуйте ще раз.");
+                default -> System.out.println("Invalid choice, please try again.");
             }
         }
 
@@ -52,27 +55,26 @@ public class ProductConsoleInterface {
     }
 
     private void createProduct(Scanner scanner) {
-        System.out.print("Введіть назву товару: ");
+        System.out.print("Enter product name: ");
         String name = scanner.nextLine();
 
-        System.out.print("Введіть кількість товару: ");
+        System.out.print("Enter product quantity: ");
         int quantity = scanner.nextInt();
         scanner.nextLine();
 
-        //1728152125126L
         Long productId = System.currentTimeMillis();
         String barcode = barcodeService.generateItf14Barcode(productId);
 
         productService.createProduct(name, quantity, barcode);
 
-        System.out.println("Товар успішно створено!");
-        System.out.println("Назва: " + name);
-        System.out.println("Кількість: " + quantity);
-        System.out.println("Штрихкод (ITF-14): " + barcode);
+        System.out.println("Product successfully created!");
+        System.out.println("Name: " + name);
+        System.out.println("Quantity: " + quantity);
+        System.out.println("Barcode (ITF-14): " + barcode);
     }
 
     private void decodeBarcode(Scanner scanner) {
-        System.out.print("Введіть шлях до зображення штрихкоду: ");
+        System.out.print("Enter the path to the barcode image: ");
         String filePath = scanner.nextLine();
 
         try {
@@ -81,9 +83,16 @@ public class ProductConsoleInterface {
 
             String decodedBarcode = barcodeDecoder.decodeBarcode(image);
 
-            System.out.println("Зчитаний штрихкод: " + decodedBarcode);
+            System.out.println("Decoded barcode: " + decodedBarcode);
+            Optional<Product> product = productService.getProductByBarcode(decodedBarcode);
+            if (product.isPresent()) {
+                System.out.println("Name: " + product.get().getName());
+                System.out.println("Quantity: " + product.get().getQuantity());
+            } else {
+                System.out.println("Product not found for the given barcode.");
+            }
         } catch (Exception e) {
-            System.out.println("Помилка при зчитуванні зображення: " + e.getMessage());
+            System.out.println("Error reading the image: " + e.getMessage());
         }
     }
 }
