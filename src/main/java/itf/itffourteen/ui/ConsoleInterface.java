@@ -13,16 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductConsoleInterface {
+public class ConsoleInterface {
 
     private final ProductService productService;
     private final BarcodeService barcodeService;
     private final BarcodeDecoder barcodeDecoder;
 
     @Autowired
-    public ProductConsoleInterface(ProductService productService,
-                                   BarcodeService barcodeService,
-                                   BarcodeDecoder barcodeDecoder) {
+    public ConsoleInterface(ProductService productService,
+                            BarcodeService barcodeService,
+                            BarcodeDecoder barcodeDecoder) {
         this.productService = productService;
         this.barcodeService = barcodeService;
         this.barcodeDecoder = barcodeDecoder;
@@ -61,18 +61,23 @@ public class ProductConsoleInterface {
         String name = scanner.nextLine();
 
         System.out.print("Enter product quantity: ");
-        int quantity = scanner.nextInt();
-        scanner.nextLine();
+        String number = scanner.nextLine();
+        try {
+            int quantity = Integer.parseInt(number);
+            scanner.nextLine();
 
-        Long productId = System.currentTimeMillis();
-        String barcode = barcodeService.generateItf14Barcode(productId);
+            Long productId = System.currentTimeMillis();
+            String barcode = barcodeService.generateItf14Barcode(productId);
 
-        productService.createProduct(name, quantity, barcode);
+            productService.createProduct(name, quantity, barcode);
 
-        System.out.println("Product successfully created!");
-        System.out.println("Name: " + name);
-        System.out.println("Quantity: " + quantity);
-        System.out.println("Barcode (ITF-14): " + barcode);
+            System.out.println("Product successfully created!");
+            System.out.println("Name: " + name);
+            System.out.println("Quantity: " + quantity);
+            System.out.println("Barcode (ITF-14): " + barcode);
+        } catch (NumberFormatException e) {
+            System.out.println(number + " is not a valid integer number");
+        }
     }
 
     private void decodeBarcode(Scanner scanner) {
