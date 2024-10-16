@@ -23,7 +23,7 @@ public class BarcodeService {
             File outputfile = new File("barcodes/" + fullBarcode + ".png");
             ImageIO.write(image, "png", outputfile);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO
+            throw new RuntimeException("Cannot generate the file: ", e);
         }
 
         return fullBarcode;
